@@ -4,6 +4,8 @@
 
 #include "VersionCompatibility.h"
 
+ #include "Math/Vector2D.h"
+
 #include <Rendering/DrawElements.h>
 #include <SlateOptMacros.h>
 
@@ -176,7 +178,7 @@ FReply SImGuiCanvasControl::OnDragOver(const FGeometry& MyGeometry, const FDragD
 	if (Operation.IsValid())
 	{
 		const FSlateRenderTransform ScreenToWidget = MyGeometry.GetAccumulatedRenderTransform().Inverse();
-		const FVector2D DragDelta = ScreenToWidget.TransformVector(DragDropEvent.GetScreenSpacePosition() - Operation->StartPosition);
+		const FVector2D DragDelta = static_cast<FVector2D>(ScreenToWidget.TransformVector(DragDropEvent.GetScreenSpacePosition() - Operation->StartPosition));
 	
 		if (Operation->DragType == EDragType::Content)
 		{
